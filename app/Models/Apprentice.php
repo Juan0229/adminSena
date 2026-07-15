@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,15 +9,21 @@ class Apprentice extends Model
 {
     use HasFactory;
 
-    // Un aprendiz pertenece a un curso
+    protected $fillable = [
+        'name',
+        'email',
+        'cell_number',
+        'course_id',
+        'computer_id',
+    ];
+
     public function course()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo('App\Models\Course');
     }
 
-    // Un aprendiz usa un computador
     public function computer()
     {
-        return $this->belongsTo(Computer::class);
+        return $this->belongsTo('App\Models\Computer');
     }
 }
