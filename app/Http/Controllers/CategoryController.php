@@ -3,13 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function create()
+    public function index()
     {
-        return view('category.create');
+        return Category::all();
+    }
+
+    public function show($id)
+    {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response()->json(['message' => 'Categoría no encontrada'], 404);
+        }
+
+        return $category;
     }
 
     public function store(Request $request)
@@ -18,10 +29,38 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $category = new Category();
-        $category->name = $validated['name'];
-        $category->save();
+        $category = Category::create($validated);
+
+        return response()->json($category, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response()->json(['message' => 'Categoría no encontrada'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $category->update($validated);
 
         return $category;
+    }
+
+    public function destroy($id)
+    {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response()->json(['message' => 'Categoría no encontrada'], 404);
+        }
+
+        $category->delete();
+
+        return response()->json(['message' => 'Categoría eliminada']);
     }
 }

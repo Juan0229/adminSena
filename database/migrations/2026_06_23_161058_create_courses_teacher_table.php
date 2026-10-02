@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('courses_teacher', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('courses_teacher_id');
+            $table->foreign('courses_teachers_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->unsignedBigInteger('teachers_id');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('courses_teacher');
-    }
 };

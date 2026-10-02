@@ -8,6 +8,17 @@ class Apprentice extends Model
 {
     use HasFactory;
 
+    // En la base de datos la tabla se llama "apprendices", no "apprentices".
+    protected $table = 'apprendices';
+
+    protected $fillable = [
+        'name',
+        'email',
+        'cell_number',
+        'course_id',
+        'computer_id',
+    ];
+
     // Un aprendiz pertenece a un curso
     public function course()
     {
