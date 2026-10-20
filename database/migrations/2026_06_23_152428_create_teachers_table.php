@@ -13,9 +13,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->foreignId('areas_id')->constrained()->onDelete('cascade');
-            $table->foreignId('training_id')->constrained()->onDelete('cascade');
+            $table->foreignId('area_id')->constrained()->onDelete('cascade');
+            $table->foreignId('training_center_id')->constrained('trainings')->onDelete('cascade');
             $table->timestamps();
         });
     }
+
 };

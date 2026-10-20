@@ -13,4 +13,16 @@ class ComputersController extends Controller
 
         return response()->json($computers);
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'number' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+        ]);
+
+        $computer = Computer::create($validated);
+
+        return response()->json($computer, 201);
+    }
 }

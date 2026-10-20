@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->String('description');
-            $table->integer('weigth');
+            $table->integer('weight');
             $table->integer('cant');
             $table->timestamps();
         });

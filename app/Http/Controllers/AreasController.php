@@ -13,4 +13,15 @@ class AreasController extends Controller
 
         return response()->json($areas);
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $area = Area::create($validated);
+
+        return response()->json($area, 201);
+    }
 }

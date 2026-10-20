@@ -9,6 +9,7 @@ use App\Http\Controllers\ComputersController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\TeachersController;
 use App\Http\Controllers\ApprendicesController;
+use App\Http\Controllers\PostsController;
 
 Route::get('/hola', function () {
     return response()->json(['mensaje' => 'Hola, funciona!']);
@@ -31,12 +32,16 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])
 
 Route::get('/areas', [AreasController::class, 'index'])
     ->name('api.v1.areas.index');
+Route::post('/areas', [AreasController::class, 'store'])
+    ->name('api.v1.areas.store');
 
 Route::get('/training_centers', [TrainingController::class, 'index'])
     ->name('api.v1.training_centers.index');
 
 Route::get('/computers', [ComputersController::class, 'index'])
     ->name('api.v1.computers.index');
+Route::post('/computers', [ComputersController::class, 'store'])
+    ->name('api.v1.computers.store');
 
 Route::get('/courses', [CoursesController::class, 'index'])
     ->name('api.v1.courses.index');
@@ -46,3 +51,6 @@ Route::get('/teachers', [TeachersController::class, 'index'])
 
 Route::get('/apprentices', [ApprendicesController::class, 'index'])
     ->name('api.v1.apprentices.index');
+
+Route::get('/posts', [PostsController::class, 'index'])
+    ->name('api.v1.posts.index');
