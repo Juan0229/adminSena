@@ -46,6 +46,33 @@ class AreasController extends Controller
         return response()->json(Area::all());
     }
 
+    public function show($id)
+    {
+        return response()->json(Area::findOrFail($id));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+        ]);
+
+        $area = Area::findOrFail($id);
+        $area->name = $request->name;
+
+        if ($request->hasFile('image')) {
+            $this->destroyImage($area->image_public_id);
+            $img = $this->uploadToAreas($request);
+            $area->image = $img['url'];
+            $area->image_public_id = $img['public_id'];
+        }
+
+        $area->save();
+
+        return response()->json($area);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -102,5 +129,14 @@ class AreasController extends Controller
         $area->save();
 
         return response()->json(['success' => true, 'message' => 'Imagen eliminada']);
+    }
+
+    public function destroy($id)
+    {
+        $area = Area::findOrFail($id);
+        $this->destroyImage($area->image_public_id);
+        $area->delete();
+
+        return response()->json(['success' => true, 'message' => 'Área eliminada']);
     }
 }

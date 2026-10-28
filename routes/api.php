@@ -34,10 +34,16 @@ Route::get('/areas', [AreasController::class, 'index'])
     ->name('api.v1.areas.index');
 Route::post('/areas', [AreasController::class, 'store'])
     ->name('api.v1.areas.store');
+Route::get('/areas/{id}', [AreasController::class, 'show'])
+    ->name('api.v1.areas.show');
+Route::put('/areas/{id}', [AreasController::class, 'update'])
+    ->name('api.v1.areas.update');
 Route::post('/areas/upload', [AreasController::class, 'uploadImage'])
     ->name('api.v1.areas.upload');
 Route::delete('/areas/{id}/image', [AreasController::class, 'removeImage'])
     ->name('api.v1.areas.removeImage');
+Route::delete('/areas/{id}', [AreasController::class, 'destroy'])
+    ->name('api.v1.areas.destroy');
 
 Route::get('/training_centers', [TrainingController::class, 'index'])
     ->name('api.v1.training_centers.index');
