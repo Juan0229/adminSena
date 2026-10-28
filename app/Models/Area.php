@@ -11,6 +11,8 @@ class Area extends Model
 
     protected $fillable = [
         'name',
+        'image',
+        'image_public_id',
     ];
 
     public function teachers()
